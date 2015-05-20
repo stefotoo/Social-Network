@@ -1,0 +1,4 @@
+<div ng-controller="HomeController">
+    <div ng-include="'partials/guest/guest.html'" ng-if="!isLogged"></div>
+    <div ng-include="'partials/user/news-feed.html'" ng-if="isLogged"></div>
+</div>
