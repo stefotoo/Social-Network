@@ -1,160 +1,41 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="socialNetworkApp">
+<html lang="en" ng-app="socialNetworkApp" ng-controller="AppController">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.8.3/angular-material.min.css">
+    <link rel="stylesheet" href="/node_modules/angular-material/angular-material.css">
     <title>Social Network</title>
 </head>
-<body ng-controller="AppCtrl">
+<body>
 
-    <md-button class="md-primary">Click me</md-button>
-    <md-button class="md-accent">or maybe me</md-button>
-    <md-button class="md-warn">Careful</md-button>
+<div class="main" id="main" ng-view>
+</div>
 
-    <div ng-controller="AppCtrl">
-        <md-content>
-            <section layout="row" layout-sm="column" layout-align="center center">
-                <md-button>{{title1}}</md-button>
-                <md-button md-no-ink class="md-primary">Primary (md-noink)</md-button>
-                <md-button ng-disabled="true" class="md-primary">Disabled</md-button>
-                <md-button class="md-warn">{{title4}}</md-button>
-                <div class="label">Flat</div>
-            </section>
-            <section layout="row" layout-sm="column" layout-align="center center">
-                <md-button class="md-raised">Button</md-button>
-                <md-button class="md-raised md-primary">Primary</md-button>
-                <md-button ng-disabled="true" class="md-raised md-primary">Disabled</md-button>
-                <md-button class="md-raised md-warn">Warn</md-button>
-                <div class="label">Raised</div>
-            </section>
-            <section layout="row" layout-sm="column" layout-align="center center">
-                <md-button class="md-fab" aria-label="Eat cake">
-                    <md-icon md-svg-src="img/icons/cake.svg"></md-icon>
-                </md-button>
-                <md-button class="md-fab md-primary" aria-label="Use Android">
-                    <md-icon md-svg-src="img/icons/android.svg"></md-icon>
-                </md-button>
-                <md-button class="md-fab" ng-disabled="true" aria-label="Comment">
-                    <md-icon md-svg-src="img/icons/ic_comment_24px.svg"></md-icon>
-                </md-button>
-                <md-button class="md-fab md-primary md-hue-2" aria-label="Profile">
-                    <md-icon md-svg-src="img/icons/ic_people_24px.svg"></md-icon>
-                </md-button>
-                <md-button class="md-fab md-mini" aria-label="Eat cake">
-                    <md-icon md-svg-src="img/icons/cake.svg"></md-icon>
-                </md-button>
-                <md-button class="md-fab md-mini md-primary" aria-label="Use Android">
-                    <md-icon md-svg-src="img/icons/android.svg" style="color: greenyellow;"></md-icon>
-                </md-button>
-                <div class="label">FAB</div>
-            </section>
-            <section layout="row" layout-sm="column" layout-align="center center">
-                <md-button ng-href="{{googleUrl}}" target="_blank">Default Link</md-button>
-                <md-button class="md-primary" ng-href="{{googleUrl}}" target="_blank">Primary Link</md-button>
-                <md-button>Default Button</md-button>
-                <div class="label">Link vs. Button</div>
-            </section>
-            <section layout="row" layout-sm="column" layout-align="center center">
-                <md-button class="md-primary md-hue-1">Primary Hue 1</md-button>
-                <md-button class="md-warn md-raised md-hue-2">Warn Hue 2</md-button>
-                <md-button class="md-accent">Accent</md-button>
-                <md-button class="md-accent md-raised md-hue-1">Accent Hue 1</md-button>
-                <div class="label">Themed</div>
-            </section>
-            <section layout="row" layout-sm="column" layout-align="center center">
-                <md-button class="md-icon-button md-primary" aria-label="Settings">
-                    <md-icon md-svg-icon="img/icons/menu.svg"></md-icon>
-                </md-button>
-                <md-button class="md-icon-button md-accent" aria-label="Favorite">
-                    <md-icon md-svg-icon="img/icons/favorite.svg"></md-icon>
-                </md-button>
-                <md-button class="md-icon-button" aria-label="More">
-                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
-                </md-button>
-                <md-button href="http://google.com"
-                           title="Launch Google.com in new window"
-                           target="_blank"
-                           ng-disabled="true"
-                           aria-label="Google.com"
-                           class="md-icon-button launch" >
-                    <md-icon md-svg-icon="img/icons/launch.svg"></md-icon>
-                </md-button>
-                <div class="label">Icon Button</div>
-            </section>
-        </md-content>
-    </div>
+<script src="lib/angular/angular.js"></script>
+<script src="lib/angular/angular-route.js"></script>
+<script src="lib/angular/angular-resource.js"></script>
+<script src="lib/jquery/jquery-2.1.3.js"></script>
+<script src="lib/jquery.noty/jquery.noty.js"></script>
+<script src="lib/bootstrap/bootstrap-3.1.1.js"></script>
+<script src="lib/ui.bootstrap/ui.bootstrap.pagination-0.12.0.js"></script>
+<script src="/node_modules/angular/angular.js"></script>
+<script src="/node_modules/angular-aria/angular-aria.js"></script>
+<script src="/node_modules/angular-animate/angular-animate.js"></script>
+<script src="/node_modules/angular-material/angular-material.js"></script>
 
-    <div ng-controller="AppCtrl" layout-padding>
-        <p> Using ngModel: </p>
-        <div>
-            <md-checkbox ng-model="data.cb1" aria-label="Checkbox 1">
-                Checkbox 1: {{ data.cb1 }}
-            </md-checkbox>
-        </div>
-        <div>
-            <md-checkbox ng-model="data.cb2" aria-label="Checkbox 2" ng-true-value="'yup'" ng-false-value="'nope'" class="md-warn">
-                Checkbox 2 (md-warn): {{ data.cb2 }}
-            </md-checkbox>
-        </div>
-        <div>
-            <md-checkbox ng-disabled="true" aria-label="Disabled checkbox" ng-model="data.cb3">
-                Checkbox: Disabled
-            </md-checkbox>
-        </div>
-        <div>
-            <md-checkbox ng-disabled="true" aria-label="Disabled checked checkbox" ng-model="data.cb4" ng-init="data.cb4=true">
-                Checkbox: Disabled, Checked
-            </md-checkbox>
-        </div>
-        <div>
-            <md-checkbox md-no-ink aria-label="Checkbox No Ink" ng-model="data.cb5" class="md-primary">
-                Checkbox (md-primary): No Ink
-            </md-checkbox>
-        </div>
-    </div>
+<!-- Load app source code: main script, services, controllers, etc. -->
+<script src="js/app.js"></script>
 
-    <div ng-controller="AppCtrl" layout="column" layout-margin>
-        <p class="inset">
-            Open a dialog over the app's content. Press escape or click outside to close the dialog and
-            send focus back to the triggering button.
-        </p>
-        <div layout="column" layout-align="center" class="dialog-demo-content">
-            <div>
-                <md-button class="md-primary" ng-click="showAlert($event)">
-                    Alert Dialog
-                </md-button>
-            </div>
-            <div>
-                <md-button class="md-primary" ng-click="showConfirm($event)">
-                    Confirm Dialog
-                </md-button>
-            </div>
-            <div>
-                <md-button class="md-primary" ng-click="showAdvanced($event)">
-                    Custom Dialog
-                </md-button>
-            </div>
-        </div>
-        <br/>
-        <b layout="row" layout-align="center center" layout-margin>
-            {{alert}}
-        </b>
-    </div>
+<script src="js/services/notifyService.js"></script>
+<script src="js/services/userService.js"></script>
 
-    <div layout="column" layout-align="center center" flex>
-        <md-select placeholder="Pick" ng-model="someVal">
-            <md-option value="1">One</md-option>
-            <md-option value="2">Two</md-option>
-        </md-select>
-    </div>
+<script src="js/controllers/appController.js"></script>
+<script src="js/controllers/homeController.js"></script>
+<script src="js/controllers/loginController.js"></script>
+<script src="js/controllers/registerController.js"></script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.8.3/angular-material.min.js"></script>
-    <script src="js/app.js"></script>
-    <script src="js/controllers/first-demo-controller.js"></script>
 </body>
+
 <footer ng-include="'partials/footer.html'"></footer>
+
 </html>
