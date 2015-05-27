@@ -1,0 +1,21 @@
+<div class="modal" ng-if="editPostFormShown && post.id == editPostFormPostId">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="closeEditPostForm()">x</button>
+                <h4 class="modal-title">Edit post</h4>
+            </div>
+            <div class="modal-body">
+                <p>Old content: <span class="text-info">{{post.postContent}}</span></p>
+                <div class="form-group">
+                    <label class="control-label" for="focusedInput">New content:</label>
+                    <input class="form-control" id="focusedInput" type="text" ng-init="editedPostContent.postContent = post.postContent" ng-model="editedPostContent.postContent">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="closeEditPostForm()">Close</button>
+                <button type="button" class="btn btn-primary" ng-click="editPost(post.id, editedPostContent)">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>

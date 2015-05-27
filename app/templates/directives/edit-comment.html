@@ -1,0 +1,21 @@
+<div class="modal" ng-if="editCommentFormShown && comment.id == editCommentFormCommentId">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="closeEditCommentForm()">x</button>
+                <h4 class="modal-title">Edit comment</h4>
+            </div>
+            <div class="modal-body">
+                <p>Old content: <span class="text-info">{{comment.commentContent}}</span></p>
+                <div class="form-group">
+                    <label class="control-label" for="focusedInput">New content:</label>
+                    <input class="form-control" id="focusedInput" type="text" ng-init="editedCommentContent.commentContent = comment.commentContent" ng-model="editedCommentContent.commentContent">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="closeEditCommentForm()">Close</button>
+                <button type="button" class="btn btn-primary" ng-click="editComment(post.id, comment.id, editedCommentContent)">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>

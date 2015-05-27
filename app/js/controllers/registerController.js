@@ -1,43 +1,28 @@
 'use strict';
 
 socialNetworkApp.controller('RegisterController',
-    function ($scope, $location, $route, userService, notifyService) {
+    ['$scope', '$route', '$timeout', 'userData', 'credentials', 'toaster', function ($scope, $route, $timeout, userData, credentials, toaster) {
+        var defaultNotificationTimeout = 2000;
+        $scope.register = register;
 
-        $scope.ClearData = function () {
-            $scope.loginData = "";
-            $scope.registerData = "";
-            $scope.userData = "";
-            $scope.passwordData = "";
-        };
+        function register(user, registerForm) {
+            userData.register(user)
+                .$promise
+                .then(function (data) {
+                    credentials.saveLoggedUser(user);
+                    credentials.saveTokenInSessionStorage(data.access_token, data.token_type);
+                    $scope.registerForm.$setPristine();
+                    toaster.pop('success', 'Register successful!', null, defaultNotificationTimeout);
+                    reloadRoute(2000);
+                }, function (error) {
+                    toaster.pop('error', 'Registration error!', error.data.message, defaultNotificationTimeout);
+                })
+        }
 
-        $scope.register = function () {
-            userService.Register($scope.registerData,
-                function(serverData) {
-                    notifyService.showInfo("Successfully registered");
-                    userService.SetCredentials(serverData);
-                    $scope.ClearData();
-                    $location.path('/news');
-                },
-                function (serverError) {
-                    notifyService.showError("Registration error", serverError);
-                    console.log(serverError);
-                });
-        };
-
-        $scope.logout = function () {
-            $scope.ClearData();
-            userService.ClearCredentials();
-            notifyService.showInfo("Logout successful");
-            $route.reload();
-        };
-
-        $scope.clear = function () {
-            $route.reload();
-        };
-
-        $scope.clearStatus = function () {
-            $route.reload();
+        function reloadRoute(time) {
+            $timeout(function () {
+                $route.reload();
+            }, time);
         }
     }
-);
-
+]);

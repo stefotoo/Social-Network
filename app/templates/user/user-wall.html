@@ -1,0 +1,44 @@
+<header ng-include="'templates/user/header.html'"></header>
+
+<div class="row wall-header">
+<div id="wall-header-data">
+    <img src="" ng-src="{{userData.profileImageData}}" alt="{{userData.name}}" ng-if="userData.profileImageData">
+    <img src="" ng-src="{{defaultProfileImageData}}" alt="{{user.name}}" ng-if="!userData.profileImageData">
+    <div>
+        <h3>{{userData.name}}</h3>
+        <button class="btn btn-warning btn-lg {{disabledButton}}" ng-click="sendFriendRequest(userData.username, 'wallOwner')">{{buttonName}}</button>
+    </div>
+</div>
+<img src="" ng-src="{{userData.coverImageData}}" alt="{{userData.name}}">
+</div>
+
+<div class="row">
+    <div class="col-sm-6 col-md-6 col-lg-6 col-md-offset-1">
+        <div posts></div>
+    </div>
+
+    <div class="col-sm-4 col-sm-offset-1 col-md-3 col-md-offset-1 col-lg-3 col-lg-offset-1" ng-if="isFriendOrLoggedUser">
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div id="message-input" class="form-group">
+                        <div class="input-group">
+                            <input type="text" ng-model="postContent" class="form-control" placeholder="Message...">
+                            <span class="input-group-btn">
+                              <button class="btn btn-default" type="button" ng-click="submitPost(postContent)">Submit</button>
+                            </span>
+                        </div>
+                        <a href="#/users/{{user.username}}">
+                            <img src="" ng-src="{{user.profileImageData}}" alt="{{user.name}}" ng-if="user.profileImageData">
+                            <img src="" ng-src="{{defaultProfileImageData}}" alt="{{user.name}}" ng-if="!user.profileImageData">
+                            <span> as {{user.name}}</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" friends-sidebar></div>
+    </div>
+</div>
+
+<toaster-container toaster-options="{'time-out': 1500, 'animation-class': 'toast-center'}"></toaster-container>

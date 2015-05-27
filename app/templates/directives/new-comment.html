@@ -1,0 +1,11 @@
+<div class="form-group" ng-if="showNewCommentForm == true && newCommentFormPostId == post.id">
+    <div class="row">
+        <div class="col-md-8">
+            <label class="control-label" for="inputLarge">New comment</label>
+            <input class="form-control input-lg" type="text" id="inputLarge" ng-model="newComment.commentContent">
+        </div>
+        <div class="col-md-4">
+            <button class="btn btn-primary submit-comment-btn" ng-click="postComment(newComment, post.id)">Submit</button>
+        </div>
+    </div>
+</div>

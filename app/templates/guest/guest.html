@@ -1,109 +1,110 @@
-<header ng-include="'templates/guest/guest-header.html'"></header>
-
-<div id="jumbotron" class="row">
-    <div class="jumbotron col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1">
-        <h1>Welcome to Software University's Social Network</h1>
-        <p>Please register/login to use our services.</p>
+<div layout="row" layout-margin layout-fill layout-padding>
+    <div flex>
+        <md-toolbar class="md-accent">
+            <h2 class="md-toolbar-tools">
+                <span flex>Welcome to Social Network Stefoto!</span>
+                <md-button class="md-fab md-accent" aria-label="refresh">
+                    <md-tooltip>
+                        Refresh
+                    </md-tooltip>
+                    <md-icon md-svg-src="/img/icons/ic_refresh_24px.svg" style="width: 24px; height: 24px;">
+                    </md-icon>
+                </md-button>
+            </h2>
+        </md-toolbar>
     </div>
 </div>
-<div class="row">
-    <div class="col-md-5 col-md-offset-1" ng-controller="LoginController">
-        <form name="loginForm" class="form-horizontal" autocomplete="off">
-            <fieldset>
-                <div class="row">
-                    <div class="col-md-6 col-md-offset-3">
-                        <legend>Login</legend>
+<div>
+    <md-content class="md-padding">
+        <md-tabs md-dynamic-height md-border-bottom>
+            <md-tab label="Login">
+                <md-content class="md-padding">
+                    <div flex ng-controller="LoginController">
+                        <form name="loginForm" class="form-horizontal" autocomplete="off">
+                            <md-whiteframe class="md-whiteframe-z4" layout="column" layout-align="space-between center">
+                                <div layout="column" class="md-theme-light">
+                                    <md-subheader class="md-primary">Login</md-subheader>
+                                </div>
+                                <div layout="column" layout-align="start start">
+                                    <md-input-container flex>
+                                        <label for="loginUsername">Username</label>
+                                        <input type="text" class="form-control" id="loginUsername" ng-model="loginUser.username">
+                                    </md-input-container>
+                                    <md-input-container flex>
+                                        <label for="loginPassword">Password</label>
+                                        <input type="password" class="form-control" id="loginPassword" ng-model="loginUser.password">
+                                    </md-input-container>
+                                    <md-checkbox ng-model="rememberMe" aria-label="Checkbox 1">
+                                        Remember me
+                                    </md-checkbox>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-9 col-md-offset-3">
+                                        <md-button type="reset" class="md-raised md-primary">Clear</md-button>
+                                        <md-button type="submit" class="md-raised md-primary" ng-click="login(loginUser, loginForm)">Login</md-button>
+                                    </div>
+                                </div>
+                            </md-whiteframe>
+                        </form>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="loginUsername" class="col-md-3 control-label">Username</label>
-                    <div class="col-md-9">
-                        <input type="text" class="form-control" id="loginUsername" ng-model="user.username" placeholder="Username">
+                </md-content>
+            </md-tab>
+            <md-tab label="Register">
+                <md-content class="md-padding">
+                    <div flex ng-controller="RegisterController">
+                        <form name="registerForm" class="form-horizontal" autocomplete="off">
+                            <md-whiteframe class="md-whiteframe-z4" layout="column" layout-align="space-between center">
+                                <div layout="column" class="md-theme-light">
+                                    <md-subheader class="md-primary">Register</md-subheader>
+                                </div>
+                                <div layout="column" layout-sm="column">
+                                    <md-input-container flex>
+                                        <label for="registerUsername">Username</label>
+                                        <input type="text" class="form-control" ng-model="user.username" id="registerUsername" required="required">
+                                    </md-input-container>
+                                </div>
+                                <div layout="column" class="md-theme-light">
+                                    <md-input-container flex>
+                                        <label for="registerPassword">Password</label>
+                                        <input type="password" class="form-control" ng-model="user.password" id="registerPassword" required="required">
+                                    </md-input-container>
+                                </div>
+                                <div class="form-group">
+                                    <md-input-container flex>
+                                        <label for="registerConfirmPassword">Confirm password</label>
+                                        <input type="password" class="form-control" ng-model="user.confirmPassword" id="registerConfirmPassword" required="required">
+                                    </md-input-container>
+                                </div>
+                                <div class="form-group">
+                                    <md-input-container flex>
+                                        <label for="registerName">Name</label>
+                                        <input type="text" class="form-control" ng-model="user.name" id="registerName" required="required">
+                                    </md-input-container>
+                                </div>
+                                <div class="form-group">
+                                    <md-input-container flex>
+                                        <label for="inputEmail">E-mail</label>
+                                        <input type="email" class="form-control" ng-model="user.email" id="inputEmail" required="required">
+                                    </md-input-container>
+                                </div>
+                                <md-subheader class="md-primary">Gender</md-subheader>
+                                <md-radio-group layout="row" layout-align="center center">
+                                    <md-radio-button value="1" ng-model="user.gender" class="md-primary">Male</md-radio-button>
+                                    <md-radio-button value="2" ng-model="user.gender" class="md-primary">Female </md-radio-button>
+                                    <md-radio-button value="3" ng-model="user.gender" class="md-primary">Other</md-radio-button>
+                                </md-radio-group>
+
+                                <div class="form-group">
+                                    <div class="col-md-9 col-lg-offset-3">
+                                        <md-button type="reset" class="md-raised md-primary">Clear</md-button>
+                                        <md-button type="submit" class="md-raised md-primary" ng-click="register(user, registerForm)">Register</md-button>
+                                    </div>
+                                </div>
+                            </md-whiteframe>
+                        </form>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="loginPassword" class="col-md-3 control-label">Password</label>
-                    <div class="col-md-9">
-                        <input type="password" class="form-control" id="loginPassword" ng-model="user.password" placeholder="Password">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" ng-model="rememberMe"> Remember me
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-9 col-md-offset-3">
-                        <button type="reset" class="btn btn-default">Cancel</button>
-                        <button type="submit" class="btn btn-primary" ng-click="login(user, loginForm)">Login</button>
-                    </div>
-                </div>
-            </fieldset>
-        </form>
-    </div>
-    <div class="col-md-5" ng-controller="RegisterController">
-        <form name="registerForm" class="form-horizontal" autocomplete="off">
-            <fieldset>
-                <div class="row">
-                    <div class="col-md-6 col-md-offset-3">
-                        <legend>Register</legend>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="registerUsername" class="col-md-3 control-label">Username</label>
-                    <div class="col-md-9">
-                        <input type="text" class="form-control" ng-model="user.username" id="registerUsername" required="required" placeholder="Username">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="registerPassword" class="col-md-3 control-label">Password</label>
-                    <div class="col-md-9">
-                        <input type="password" class="form-control" ng-model="user.password" id="registerPassword" required="required" placeholder="Password">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="registerConfirmPassword" class="col-md-3 control-label">Confirm password</label>
-                    <div class="col-md-9">
-                        <input type="password" class="form-control" ng-model="user.confirmPassword" id="registerConfirmPassword" required="required" placeholder="Confirm password">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="registerName" class="col-md-3 control-label">Name</label>
-                    <div class="col-md-9">
-                        <input type="text" class="form-control" ng-model="user.name" id="registerName" required="required" placeholder="Name">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputEmail" class="col-md-3 control-label">Email</label>
-                    <div class="col-md-9">
-                        <input type="email" class="form-control" ng-model="user.email" id="inputEmail" required="required" placeholder="Email">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label">Gender</label>
-                    <div class="col-md-9">
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="gender" value="mail">Male
-                            </label>
-                            <label>
-                                <input type="radio" name="gender" value="female">Female
-                            </label>
-                            <label>
-                                <input type="radio" name="gender" value="other">Other
-                            </label>
-                        </div>
-                        <div class="radio">
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-9 col-lg-offset-3">
-                        <button type="reset" class="btn btn-default">Cancel</button>
-                        <button type="submit" class="btn btn-primary" ng-click="register(user, registerForm)">Register</button>
-                    </div>
-                </div>
-            </fieldset>
-        </form>
-    </div>
+                </md-content>
+            </md-tab>
+        </md-tabs>
+    </md-content>
 </div>

@@ -1,0 +1,107 @@
+<div ng-repeat="post in posts">
+    <div class="panel panel-default">
+        <div class="panel-body">
+
+            <!--Posts-->
+            <div class="panel panel-primary news-feed">
+                <div class="panel-heading">
+                    <img src="" ng-src="{{post.author.profileImageData}}" alt="post.author.name" ng-if="post.author.profileImageData"/>
+                    <img src="" ng-src="{{defaultProfileImageData}}" alt="post.author.name" ng-if="!post.author.profileImageData"/>
+                    <div class="hover-parent">
+                        <a href="#/users/{{post.author.username}}" ng-mouseenter="postUserPreviewShown = showUserPreview(post.author.username)">
+                            {{post.author.name}}
+                        </a>
+                        <br/>
+
+                        <div class="panel panel-success user-hover col-md-8" ng-show="postUserPreviewShown" ng-mouseleave="postUserPreviewShown = false">
+                            <div class="panel-heading hover-heading">
+                                <img src="" ng-src="{{post.author.profileImageData}}" alt="post.author.name" ng-if="post.author.profileImageData"/>
+                                <img src="" ng-src="{{defaultProfileImageData}}" alt="post.author.name" ng-if="!post.author.profileImageData"/>
+                                <span>{{post.author.name}}</span>
+                            </div>
+                            <div class="panel-body">
+                                <button class="btn btn-warning {{userHoverButtonType}}" ng-click="sendFriendRequest(post.author.username, 'postAuthor')">{{userFriendStatus}}</button>
+                            </div>
+                        </div>
+
+                        <span>{{post.date | date:'dd MMM yyyy HH:mm:ss'}}</span>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <span>{{post.postContent}}</span>
+                </div>
+                <div class="panel-footer">
+                    <div>Likes:
+                        <span class="badge">{{post.likesCount}}</span>
+                        <a href="">
+                            <span ng-if="post.liked && (post.author.isFriend || post.wallOwner.isFriend || user.username == post.author.username)" ng-click="unlikePost(post.id)">Unlike</span>
+                            <span ng-if="!post.liked && (post.author.isFriend || post.wallOwner.isFriend || user.username == post.author.username)" ng-click="likePost(post.id)">Like</span>
+                        </a>Comments:
+                        <span class="badge">{{post.totalCommentsCount}}</span>
+                        <a href="" ng-click="toggleNewCommentForm(post.id)" ng-if="post.author.isFriend || post.wallOwner.isFriend || user.username == post.author.username">
+                            <span ng-if="newCommentFormPostId == post.id">{{commentButtonName}}</span>
+                            <span ng-if="newCommentFormPostId !== post.id">Comment</span>
+                        </a>
+                        <br/>
+
+                        <div new-comment></div>
+
+                    </div>
+                </div>
+                <button class="btn btn-danger btn-sm delete-post-btn" ng-if="user.username == post.wallOwner.username || user.username == post.author.username" ng-click="deletePost(post.id)">Delete post</button>
+                <button class="btn btn-info btn-sm edit-post-btn" ng-if="user.username == post.author.username" ng-click="showEditPostForm(post.id)">Edit post</button>
+
+                <div edit-post></div>
+
+            </div>
+
+            <!--Comments-->
+            <div class="panel panel-warning news-feed news-feed-comment col-md-offset-3" ng-repeat="comment in post.comments">
+                <div class="panel-heading">
+                    <img src="" ng-src="{{comment.author.profileImageData}}" alt="post.author.name" ng-if="comment.author.profileImageData"/>
+                    <img src="" ng-src="{{defaultProfileImageData}}" alt="post.author.name" ng-if="!post.author.profileImageData"/>
+                    <div class="hover-parent">
+                        <a href="#/users/{{comment.author.username}}" ng-mouseenter="commentUserPreviewShown = showUserPreview(comment.author.username)">
+                            {{comment.author.name}}
+                        </a>
+                        <br/>
+
+                        <div class="panel panel-success user-hover col-md-8" ng-show="commentUserPreviewShown" ng-mouseleave="commentUserPreviewShown = false">
+                            <div class="panel-heading hover-heading">
+                                <img src="" ng-src="{{comment.author.profileImageData}}" alt="post.author.name" ng-if="comment.author.profileImageData"/>
+                                <img src="" ng-src="{{defaultProfileImageData}}" alt="post.author.name" ng-if="!comment.author.profileImageData"/>
+                                <span>{{comment.author.name}}</span>
+                            </div>
+                            <div class="panel-body">
+                                <button class="btn btn-warning {{userHoverButtonType}}" ng-click="sendFriendRequest(comment.author.username, 'commentAuthor')">{{userFriendStatus}}</button>
+                            </div>
+                        </div>
+
+                        <span>{{comment.date | date:'dd MMM yyyy HH:mm:ss'}}</span>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <span>{{comment.commentContent}}</span>
+                </div>
+                <div class="panel-footer">
+                    <div>Likes:
+                        <span class="badge">{{comment.likesCount}}</span>
+                        <a href="">
+                            <span ng-if="comment.liked && (post.author.isFriend || post.wallOwner.isFriend || user.username == post.author.username)" ng-click="unlikeComment(post.id, comment.id)">Unlike</span>
+                            <span ng-if="!comment.liked && (post.author.isFriend || post.wallOwner.isFriend || user.username == post.author.username)" ng-click="likeComment(post.id, comment.id)">Like</span>
+                        </a>
+                    </div>
+                </div>
+                <button class="btn btn-danger btn-sm delete-post-btn" ng-if="user.username == post.author.username || user.username == comment.author.username" ng-click="deleteComment(post.id, comment.id)">Delete comment</button>
+                <button class="btn btn-info btn-sm edit-post-btn" ng-if="user.username == comment.author.username" ng-click="showEditCommentForm(comment.id)">Edit comment</button>
+
+                <div edit-comment=""></div>
+
+            </div>
+
+            <button class="btn btn-success btn-sm pull-right" ng-if="!allCommentsShown && post.totalCommentsCount > 3" ng-click="showAllComments(post.id)">More comments</button>
+            <button class="btn btn-success btn-sm pull-right" ng-if="allCommentsShown" ng-click="showLessComments(post.id)">Less comments</button>
+        </div>
+    </div>
+
+</div>

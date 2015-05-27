@@ -1,0 +1,44 @@
+<div ng-controller="UserHeaderController">
+    <md-toolbar class="md-theme-light">
+        <div class="md-toolbar-tools">
+            <md-button class="md-fab md-primary" aria-label="Use Android" href="#/">
+                <md-icon md-svg-src="img/android.svg"></md-icon>
+            </md-button>
+            <a class="navbar-brand" href="#/">Social Network Stefoto</a>
+        </div>
+        <div layout="row" layout-align="end start">
+            <form id="search" class="navbar-form navbar-left" role="search">
+                <div class="form-group">
+                    <input type="text" class="form-control" ng-model="searchTerm" ng-change="searchUsers(searchTerm)" placeholder="Search users">
+                    <div users-search-results ng-if="searchResultsShown"></div>
+                </div>
+            </form>
+        </div>
+        <div friend-requests></div>
+    </md-toolbar>
+    <div layout="row" layout-align="end start">
+        <md-button ng-class="{ active: isActive('/users/{{user.username}}')}">
+            <a href="#/users/{{user.username}}">
+                <img src="" ng-src="{{user.profileImageData}}" alt="{{user.name}}" ng-if="user.profileImageData">
+                <img src="" ng-src="{{defaultProfileImageData}}" alt="{{user.name}}" ng-if="!user.profileImageData">
+                <span>{{user.name}}</span>
+            </a>
+        </md-button>
+        <md-button ng-class="{ active: isActive('/')}">
+            <a href="#/">News feed<span class="sr-only">(current)</span></a>
+        </md-button>
+
+        <md-button data-toggle="modal" data-target="#requests">
+            <a href="" ng-click="showRequestsDetail()">Friends requests: <span class="badge">{{requestsCount}}</span></a>
+        </md-button>
+        <md-button ng-class="{ active: isActive('/profile')}">
+            <a href="#/profile">Edit Profile</a>
+        </md-button>
+        <md-button ng-class="{ active: isActive('/profile/password')}">
+            <a href="#/profile/password">Change password</a>
+        </md-button>
+        <md-button ng-class="{ active: isActive('/logout')}">
+            <a href="#/logout">Logout</a>
+        </md-button>
+    </div>
+</div>

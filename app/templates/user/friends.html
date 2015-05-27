@@ -1,0 +1,32 @@
+<header ng-include="'templates/user/header.html'"></header>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h3>{{name}} - Friends ({{totalCount}})</h3>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="form-group">
+            <label class="control-label" for="focusedInput">Name filter: </label>
+            <input class="form-control" id="focusedInput" ng-model="nameFilter.name" type="text" value="Search...">
+        </div>
+
+        <table class="table table-bordered table-responsive">
+            <tr ng-repeat="rows in friends">
+                <td ng-repeat="friend in rows | filter: nameFilter">
+                    <a href="#/users/{{friend.username}}">
+                        <div id="friend-container">
+                            <div>
+                                <img class="friend-img img-thumbnail" src="" ng-src="{{friend.profileImageData}}" ng-if="friend.profileImageData">
+                                <img class=" friend-img img-thumbnail" src="" ng-src="{{defaultProfileImageData}}" ng-if="!friend.profileImageData">
+                            </div>
+                            <h4 id="friend-name">{{friend.name}}</h4>
+                        </div>
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
